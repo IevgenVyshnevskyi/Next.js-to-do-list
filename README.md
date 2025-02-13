@@ -1,36 +1,82 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Todo List Application
 
-## Getting Started
+This is a simple to-do list application built with **Next**. It allows users to create, edit, delete, and manage tasks. The tasks are stored in the browser's **localStorage** to ensure persistence across page reloads. Below is a detailed breakdown of the components and functionality.
 
-First, run the development server:
+## Features:
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+- **Add a Task**: Create a new task and add it to the list.
+- **Edit a Task**: Modify the title of a task.
+- **Delete a Task**: Remove a task from the list.
+- **Toggle Completion**: Mark tasks as completed or not completed.
+- **Persistent Data**: Tasks and the current title are saved in `localStorage` to maintain data even after the page reloads.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+---
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+## 1. **`TodoApp` Component**
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+This is the main component of the application that handles the state and manages the to-do list:
 
-## Learn More
+- **State**:
+  - `todos`: Stores the list of tasks.
+  - `title`: Stores the current input value for a new task.
+- **`useEffect`**:
+  - The first `useEffect` fetches saved tasks from `localStorage` when the component loads. If no tasks are found, it fetches tasks from an API (`jsonplaceholder`).
+  - The second `useEffect` loads the saved title from `localStorage`.
+- **`handleTitleChange`**: Updates the task title and saves it to `localStorage`.
 
-To learn more about Next.js, take a look at the following resources:
+- **`addTodo`**:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+  - Adds a new task to the list, checks for non-empty input, and sends a POST request to save it in the API.
+  - Updates the `todos` state and stores the updated list in `localStorage`.
+  - Clears the input field and removes the saved title from `localStorage`.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- **`toggleCompleted`**: Toggles the completion status of a task. Updates the task list and saves the new state in `localStorage`.
 
-## Deploy on Vercel
+- **`deleteTodo`**: Sends a DELETE request to remove a task from the API and updates the state.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- **`editTodo`**: Updates a task’s title when editing and saves the change to `localStorage`.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+---
+
+## 2. **`TodoList` Component**
+
+This component is responsible for displaying the list of tasks using the **`TodoItem`** component for each task.
+
+---
+
+## 3. **`InputForm` Component**
+
+This component contains a form for adding a new task:
+
+- It includes a text input and a button to submit the task.
+- When the form is submitted, the `addTodo` function is triggered.
+
+---
+
+## 4. **`TodoItem` Component**
+
+Each task is rendered with the **`TodoItem`** component:
+
+- Displays the task title and allows the user to edit it.
+- Includes buttons to toggle the completion status, edit the task, and delete the task.
+
+---
+
+## Key Concepts:
+
+- **localStorage**: Tasks and the current title are saved to `localStorage` to ensure persistence even after the page reloads.
+- **fetch API**: Used to fetch tasks from an external API (JSONPlaceholder), and to send POST and DELETE requests.
+- **nanoid**: A library used to generate unique IDs for each task.
+- **React State**: Managed using `useState` and `useEffect` hooks for handling component state and side effects.
+
+---
+
+## How to Use:
+
+1. Clone this repository or download the files.
+2. Install dependencies using `npm install`.
+3. Run the app with `npm run dev` and interact with the to-do list. Your tasks will persist even after page reloads!
+
+---
+
+This app demonstrates basic Next functionality, state management, and localStorage persistence. It's a great starting point for building more advanced task management systems!
