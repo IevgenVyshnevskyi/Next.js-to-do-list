@@ -1,11 +1,11 @@
 import { useState } from "react";
-import Button from "./Button";
 
 export default function TodoItem({
   todo,
   toggleCompleted,
   deleteTodo,
   editTodo,
+  className,
 }) {
   const [isEditing, setIsEditing] = useState(false);
   const [newTitle, setNewTitle] = useState(todo.title);
@@ -53,13 +53,13 @@ export default function TodoItem({
       )}
       <button
         onClick={handleEdit}
-        className="bg-blue-600 text-white px-2 py-2 rounded-l-lg hover:bg-blue-700 focus:ring-2 focus:outline-none"
+        className={`bg-blue-600 text-white px-2 py-2 rounded-l-lg hover:bg-blue-700 ${className}`}
       >
         {isEditing ? "Save" : "Edit"}
       </button>
       <button
         onClick={() => deleteTodo(todo.id)}
-        className="bg-red-600 text-white px-2 py-2 rounded-r-lg hover:bg-red-700 focus:ring-2 focus:ring-red-500 focus:outline-none"
+        className={`bg-red-600 text-white px-2 py-2 rounded-r-lg hover:bg-red-700  focus:ring-red-500 ${className}`}
       >
         Delete
       </button>
