@@ -113,7 +113,7 @@ export default function TodoApp() {
   };
 
   return (
-    <div className="p-6 max-w-lg mx-auto bg-sky-200 shadow-lg rounded-lg">
+    <div className="p-6 max-w-lg mx-auto bg-sky-200 shadow-lg rounded-lg container mx-auto">
       <h1 className="text-2xl font-semibold text-center mb-5 text-gray-700">
         To-Do List
       </h1>

@@ -47,16 +47,16 @@ const TodoItem: React.FC<TodoItemProps> = ({
           type="text"
           value={newTitle}
           onChange={(e) => setNewTitle(e.target.value)}
-          className="flex-1 p-2 border rounded"
+          className="flex-1 p-2 border rounded w-full max-w-xs"
         />
       ) : (
         <span
-          className={`flex items-center cursor-pointer ${
+          className={`flex-1 items-center cursor-pointer ${
             todo.completed ? "text-gray-500" : "text-gray-800"
           }`}
         >
           <span
-            className={`break-words whitespace-normal px-2 w-[323px] ${
+            className={` flex-1 break-words whitespace-normal px-2 w-[323px] ${
               todo.completed ? "line-through" : ""
             }`}
           >
@@ -66,13 +66,13 @@ const TodoItem: React.FC<TodoItemProps> = ({
       )}
       <button
         onClick={handleEdit}
-        className={`bg-blue-600 text-white px-2 py-2 rounded-l-lg hover:bg-blue-700`}
+        className={`bg-blue-600 text-white rounded-l-lg hover:bg-blue-700 p-1 sm:px-2 py-1 sm:py-2`}
       >
         {isEditing ? "Save" : "Edit"}
       </button>
       <button
         onClick={() => deleteTodo(todo.id)}
-        className={`bg-red-600 text-white px-2 py-2 rounded-r-lg hover:bg-red-700  focus:ring-red-500`}
+        className={`bg-red-600 text-white rounded-r-lg hover:bg-red-700  focus:ring-red-500 p-1 sm:px-2 py-1 sm:py-2`}
       >
         Delete
       </button>
