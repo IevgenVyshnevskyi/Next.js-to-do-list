@@ -1,13 +1,20 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, FormEvent, ChangeEvent } from "react";
 import { nanoid } from "nanoid";
 import InputForm from "./InputForm";
 import TodoList from "./TodoList";
 
+interface Todo {
+  id: number;
+  title: string;
+  completed: boolean;
+  userId: string | number;
+}
+
 export default function TodoApp() {
-  const [todos, setTodos] = useState([]);
-  const [title, setTitle] = useState("");
+  const [todos, setTodos] = useState<Todo[]>([]);
+  const [title, setTitle] = useState<string>("");
 
   useEffect(() => {
     const savedTodos = localStorage.getItem("todos");
@@ -31,12 +38,12 @@ export default function TodoApp() {
     }
   }, []);
 
-  const handleTitleChange = (e) => {
+  const handleTitleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setTitle(e.target.value);
     localStorage.setItem("title", e.target.value);
   };
 
-  const addTodo = async (e) => {
+  const addTodo = async (e: FormEvent) => {
     e.preventDefault();
     if (!title.trim()) return;
 
@@ -67,7 +74,7 @@ export default function TodoApp() {
     localStorage.removeItem("title");
   };
 
-  const toggleCompleted = (id) => {
+  const toggleCompleted = (id: number) => {
     setTodos((prevTodos) => {
       const updatedTodos = prevTodos.map((todo) =>
         todo.id === id ? { ...todo, completed: !todo.completed } : todo
@@ -77,7 +84,7 @@ export default function TodoApp() {
     });
   };
 
-  const deleteTodo = (id) => {
+  const deleteTodo = (id: number) => {
     fetch(`https://jsonplaceholder.typicode.com/todos/${id}`, {
       method: "DELETE",
     })
@@ -95,7 +102,7 @@ export default function TodoApp() {
       .catch((error) => console.error("Error deleting:", error));
   };
 
-  const editTodo = (id, newTitle) => {
+  const editTodo = (id: number, newTitle: string) => {
     setTodos((prevTodos) => {
       const updatedTodos = prevTodos.map((todo) =>
         todo.id === id ? { ...todo, title: newTitle } : todo

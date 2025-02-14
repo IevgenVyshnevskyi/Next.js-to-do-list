@@ -1,6 +1,17 @@
 import Button from "./Button";
+import { ChangeEvent, FormEvent } from "react";
 
-export default function InputForm({ title, handleTitleChange, addTodo }) {
+interface InputFormProps {
+  title: string;
+  handleTitleChange: (e: ChangeEvent<HTMLInputElement>) => void;
+  addTodo: (e: FormEvent) => void;
+}
+
+const InputForm: React.FC<InputFormProps> = ({
+  title,
+  handleTitleChange,
+  addTodo,
+}) => {
   return (
     <form onSubmit={addTodo} className="flex mb-4">
       <input
@@ -15,4 +26,6 @@ export default function InputForm({ title, handleTitleChange, addTodo }) {
       </Button>
     </form>
   );
-}
+};
+
+export default InputForm;
