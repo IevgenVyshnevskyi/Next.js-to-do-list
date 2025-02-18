@@ -31,7 +31,7 @@ const TodoItem: React.FC<TodoItemProps> = ({
   };
 
   return (
-    <li
+    <span
       className={`flex justify-between items-center p-3 border-b-2 ${
         todo.completed ? "bg-green-100" : "bg-gray-50"
       } rounded-lg shadow-sm`}
@@ -76,7 +76,7 @@ const TodoItem: React.FC<TodoItemProps> = ({
       >
         Delete
       </button>
-    </li>
+    </span>
   );
 };
 

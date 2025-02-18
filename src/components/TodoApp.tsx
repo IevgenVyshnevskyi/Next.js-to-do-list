@@ -2,8 +2,10 @@
 
 import { useState, useEffect, FormEvent, ChangeEvent } from "react";
 import { nanoid } from "nanoid";
+import { DragDropContext } from "@hello-pangea/dnd";
 import InputForm from "./InputForm";
 import TodoList from "./TodoList";
+
 
 interface Todo {
   id: number;
@@ -111,14 +113,33 @@ export default function TodoApp() {
       return updatedTodos;
     });
   };
+  
+  const handleDragEnd = (result) => {
+    if(!result.destination) return; 
+    const startIndex = result.source.index;
+    const endIndex = result.destination.index;
+    const copyTodos = [...todos];
+    const [reorderTodo] = copyTodos.splice(startIndex,1);
+    copyTodos.splice(endIndex,0,reorderTodo);
+    setTodos(copyTodos);
+  }
 
   return (
     <div className="p-6 max-w-lg mx-auto bg-sky-200 shadow-lg rounded-lg container mx-auto">
-      <h1 className="text-2xl font-semibold text-center mb-5 text-gray-700">
-        To-Do List
-      </h1>
-      <InputForm title={title} handleTitleChange={handleTitleChange} addTodo={addTodo} />
-      <TodoList todos={todos} toggleCompleted={toggleCompleted} deleteTodo={deleteTodo} editTodo={editTodo}/>
+        <DragDropContext
+            //onBeforeCapture={onBeforeCapture}
+            //onBeforeDragStart={onBeforeDragStart}
+            //onDragStart={onDragStart}
+            //onDragUpdate={onDragUpdate}
+            //onDragEnd={onDragEnd}
+            onDragEnd={handleDragEnd}
+        >
+          <h1 className="text-2xl font-semibold text-center mb-5 text-gray-700">
+            To-Do List
+          </h1>
+          <InputForm title={title} handleTitleChange={handleTitleChange} addTodo={addTodo} />
+          <TodoList todos={todos} toggleCompleted={toggleCompleted} deleteTodo={deleteTodo} editTodo={editTodo} />
+        </DragDropContext>
     </div>
   );
 }

@@ -1,5 +1,6 @@
 import React from "react";
 import TodoItem from "./TodoItem";
+import { Draggable, Droppable } from '@hello-pangea/dnd';
 
 interface Todo {
   id: number;
@@ -21,18 +22,42 @@ const TodoList: React.FC<TodoListProps> = ({
   deleteTodo,
   editTodo,
 }) => {
+
   return (
-    <ul className="space-y-3">
-      {todos.map((todo) => (
-        <TodoItem
-          key={todo.id}
-          todo={todo}
-          toggleCompleted={toggleCompleted}
-          deleteTodo={deleteTodo}
-          editTodo={editTodo}
-        />
-      ))}
-    </ul>
+      <Droppable droppableId="todos">
+          {(droppableProvider) => (
+            <ul
+              ref={droppableProvider.innerRef}
+              {...droppableProvider.droppableProps}
+              className="space-y-3"
+            >
+              {todos.map((todo, index) => (
+                <Draggable
+                  index={index}
+                  key={todo.id}
+                  draggableId={`${todo.id}`}
+                >
+                  {(draggableProvider) => (
+                    <li
+                      ref={draggableProvider.innerRef}
+                      {...draggableProvider.draggableProps}
+                      {...draggableProvider.dragHandleProps}
+                    >
+                      <TodoItem
+                        key={todo.id}
+                        todo={todo}
+                        toggleCompleted={toggleCompleted}
+                        deleteTodo={deleteTodo}
+                        editTodo={editTodo}
+                      />
+                    </li>
+                  )}
+                </Draggable>
+              ))}
+              {droppableProvider.placeholder}
+            </ul>
+          )}
+      </Droppable>
   );
 };
 
