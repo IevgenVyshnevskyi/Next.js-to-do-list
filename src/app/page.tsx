@@ -7,6 +7,6 @@ const Home: React.FC = () => {
       <TodoApp />
     </main>
   );
-}
+};
 
 export default Home;
