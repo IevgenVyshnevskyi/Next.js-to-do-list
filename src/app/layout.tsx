@@ -16,6 +16,7 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "To-Do List",
+  icons: "images/To-Do-List-Logo.png",
   description: "Created by Ievgen Vishnevskyi",
 };
 

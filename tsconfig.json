@@ -28,7 +28,7 @@
     ".next/types/**/*.ts",
     "**/*.ts",
     "**/*.tsx"
-  ],
+, "src/app/page.tsx", "src/components/Logo.tsx"  ],
   "exclude": [
     "node_modules"
   ]
