@@ -13,7 +13,6 @@ interface TodoItemProps {
   toggleCompleted: (id: number) => void;
   deleteTodo: (id: number) => void;
   editTodo: (id: number, newTitle: string) => void;
-  //onClick: (id: number) => void;
 }
 
 const TodoItem: React.FC<TodoItemProps> = ({
@@ -33,7 +32,7 @@ const TodoItem: React.FC<TodoItemProps> = ({
     setIsEditing(!isEditing);
   };
 
-  let subtitle;
+
   const subtitleRef = useRef<HTMLHeadingElement | null>(null);
 
   useEffect(() => {
@@ -45,7 +44,6 @@ const TodoItem: React.FC<TodoItemProps> = ({
   }
 
   function afterOpenModal() {
-    // Тепер subtitleRef.current посилається на DOM-елемент
     if (subtitleRef.current) {
       subtitleRef.current.style.color = "#f00";
     }
@@ -63,8 +61,6 @@ const TodoItem: React.FC<TodoItemProps> = ({
         className={`flex justify-between items-center p-2 sm:p-3 border-b-2 ${
           todo.completed ? "bg-green-100" : "bg-gray-50"
         } rounded-lg shadow-sm`}
-        //onClick={openModal}
-        //onClick={handleEdit}
       >
         <input
           type="checkbox"
@@ -87,7 +83,6 @@ const TodoItem: React.FC<TodoItemProps> = ({
             }`}
           >
             <span
-              //onDoubleClick={openModal}
               className={` flex-1 break-words whitespace-normal px-2 ${
                 todo.completed ? "line-through" : ""
               }`}
@@ -123,7 +118,6 @@ const TodoItem: React.FC<TodoItemProps> = ({
           className={`flex justify-between items-center p-2 sm:p-3 border-b-2 ${
             todo.completed ? "bg-green-100" : "bg-gray-50"
           } rounded-lg shadow-sm`}
-          //onClick={openModal}
         >
           <input
             type="checkbox"
@@ -138,18 +132,15 @@ const TodoItem: React.FC<TodoItemProps> = ({
               value={newTitle}
               onChange={(e) => setNewTitle(e.target.value)}
               className="flex-1 p-2 border rounded w-full max-w-sm text-xl mx-1"
-              //onClick={handleEdit}
             />
           ) : (
             <span
               onClick={handleEdit}
-              //onDoubleClick={openModal}
               className={`flex-1 items-center cursor-pointer w-[100px] break-words whitespace-normal px-2 sm:w-[323px] ${
                 todo.completed ? "text-gray-500" : "text-gray-800"
               }`}
             >
               <span
-                //onDoubleClick={openModal}
                 className={` flex-1 break-words whitespace-normal px-2 text-2xl ${
                   todo.completed ? "line-through" : ""
                 }`}

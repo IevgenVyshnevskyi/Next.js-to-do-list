@@ -21,7 +21,7 @@ export default function TodoApp() {
     const savedTodos = localStorage.getItem("todos");
     if (savedTodos) {
       setTodos(JSON.parse(savedTodos));
-    } else {
+    } /* else {
       fetch("https://jsonplaceholder.typicode.com/todos?_limit=10")
         .then((res) => res.json())
         .then((data) => {
@@ -29,7 +29,7 @@ export default function TodoApp() {
           localStorage.setItem("todos", JSON.stringify(data));
         })
         .catch((error) => console.error("Download error: ", error));
-    }
+    } */
   }, []);
 
   useEffect(() => {
